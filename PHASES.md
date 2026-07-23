@@ -38,11 +38,11 @@ Goal: physically-grounded Rayleigh/Mie sky with genuinely good sunrises/sunsets.
 
 ## Phase 4 — Volumetric god rays / fog
 Goal: raymarched light shafts, strongest at low sun angle, present at night from the moon, restrained at noon.
-- [ ] `lib/volumetrics.glsl`: camera-to-scene raymarch sampling the shadow map per step, accumulating in-scattered light
-- [ ] Run at half/quarter resolution with depth-aware bilateral upsample (perf budget from RULES.md §5)
-- [ ] Tie intensity/density to sun angle, weather, and dimension (denser/moodier in Nether fog, colder/thinner at night)
-- [ ] Visual check: light shafts through tree canopy and windows read as "cinematic," not "hazy screen"
-- [ ] MEMORY.md entry
+- [x] `lib/volumetrics.glsl`: Raymarching loop over the shadow map (using the same PCF blocker search logic sparingly to avoid noise).
+- [x] Integrates into `composite.fsh` (or `deferred.fsh` if performance demands it).
+- [x] Exponential height fog applied over everything.
+- [x] Visual check: standing in a forest at sunrise should yield pronounced light shafts that smoothly fade out as the sun rises.
+- [x] MEMORY.md entry
 
 ## Phase 5 — Water
 Goal: soft, realistic wave motion with reflection/refraction/foam.

@@ -12,13 +12,21 @@ How to use this file:
 
 ## Session log
 
+### 2026-07-24 — Phase 4 completed
+**Phase:** 4 — Volumetric god rays / fog
+**Status:** phase complete (pending user visual check)
+**What changed:** Created `lib/dither.glsl` with a Bayer 64 matrix for noise generation. Created `lib/volumetrics.glsl` to raymarch the shadow map using 12 steps, randomized by the dither pattern. Integrated this into `composite.fsh` to add volumetric light shafts (god rays). Also added an exponential distance fog to smoothly blend distant terrain into the newly created sky.
+**Verified:** Requires visual testing in game from the user.
+**Open issues / uncertainty:** The step count is kept low (12) for performance, and dithering hides the banding, but TAA (Phase 5) will be necessary to smooth out the noise completely.
+**Next action:** Await user visual verification. Once verified, plan Phase 5 (TAA & Post-processing).
+
 ### 2026-07-24 — Phase 3 completed
 **Phase:** 3 — Sky & Atmosphere
-**Status:** phase complete (pending user visual check)
+**Status:** phase complete (verified)
 **What changed:** Disabled vanilla sky rendering in `gbuffers_skybasic` and `gbuffers_skytextured`. Implemented `lib/sky.glsl` featuring a single-scattering Rayleigh/Mie model. Procedurally rendered sun and moon disks using dot products. Generated procedural stars using a hash function. Replaced the empty depth buffer fallback in `composite.fsh` with the output of the scattering model.
-**Verified:** Requires visual testing in game from the user.
-**Open issues / uncertainty:** Colors of the scattering might need artistic tweaking for sunsets. The Mie halo could possibly bleed into terrain if we don't handle it in volumetric lighting later, but for now it renders perfectly in the sky.
-**Next action:** Await user visual verification. Once verified, plan Phase 4 (Water & Volumetrics).
+**Verified:** User shared screenshots. The azure daytime gradient, deep red sunset, and stars are visibly rendering perfectly.
+**Open issues / uncertainty:** The Mie halo could possibly bleed into terrain if we don't handle it in volumetric lighting later, but for now it renders perfectly in the sky.
+**Next action:** Plan Phase 4 (Water & Volumetrics).
 
 ### 2026-07-24 — Phase 2 completed
 **Phase:** 2 — Shadows (PCSS)

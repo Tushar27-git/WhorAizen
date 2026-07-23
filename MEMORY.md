@@ -12,6 +12,13 @@ How to use this file:
 
 ## Session log
 
+### 2026-07-24 - Phase 4 bugfix & deployment update
+**Phase:** 4 - Volumetric god rays / fog
+**Status:** phase complete (pending final user visual check)
+**What changed:** Encountered severe structural issues with how Iris parsed the GitHub-generated .zip file, resulting in "Invalid Pack" fallback to vanilla. Fixed this by deploying an unzipped `WhorAizen` directory directly to the user's local `shaderpacks` folder. Also resolved highly strict GLSL compilation errors in Iris: converted macro Bayer matrices in `lib/dither.glsl` to functions to avoid AST expansion blowups, renamed `colortex0` to `fragColor0` in gbuffers to avoid built-in sampler collisions, and removed illegal initialized uniforms in GLSL 330.
+**Verified:** Confirmed via logs that Iris parses the unzipped folder structure correctly. Awaiting user's in-game visual confirmation of volumetrics and atmospherics.
+**Open issues / uncertainty:** If the shaders compile correctly now, the remaining work is ensuring the volumetrics perform reasonably without TAA. 
+**Next action:** Await user visual verification. Once verified, plan Phase 5 (Water).
 ### 2026-07-24 — Phase 4 completed
 **Phase:** 4 — Volumetric god rays / fog
 **Status:** phase complete (pending user visual check)

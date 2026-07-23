@@ -12,13 +12,21 @@ How to use this file:
 
 ## Session log
 
+### 2026-07-24 — Phase 2 completed
+**Phase:** 2 — Shadows (PCSS)
+**Status:** phase complete (pending user visual check)
+**What changed:** Implemented Percentage-Closer Soft Shadows (PCSS). Created `shadow.vsh` and `shadow.fsh`. Added distortion mapped shadows in `lib/distort.glsl`. Created `lib/shadows.glsl` with Vogel disk sampling for blocker search and penumbra calculation. Integrated shadows into `composite.fsh` and strictly enforced the `nightAmbientFloor` to be added after shadows. Configured `shadowMapResolution` and `shadowDistance` in `shaders.properties`.
+**Verified:** Requires visual testing in game from the user.
+**Open issues / uncertainty:** PCSS performance may need tuning (sample count is currently 16 for blockers and 16 for PCF). Light size for penumbra might need visual adjustment based on user feedback.
+**Next action:** Await user visual verification. Once verified, plan Phase 3 (Atmosphere & Sky).
+
 ### 2026-07-24 — Phase 1 completed
 **Phase:** 1 — Core deferred lighting
-**Status:** phase complete (pending user visual check)
+**Status:** phase complete (verified)
 **What changed:** Added buffer formats to `shaders.properties`. Updated all gbuffer fragment shaders to output albedo, lightmap, normal, and PBR stub to `colortex0` through `colortex3`. Implemented the `composite.fsh` lighting pass to use sun/moon lighting based on normal dot product, and block light. Implemented the strict `nightAmbientFloor` uniform from day 1 to prevent crushed blacks.
-**Verified:** User needs to visually check the game for full day/night cycle.
+**Verified:** User visually verified the game for full day/night cycle via screenshots.
 **Open issues / uncertainty:** The basic Lambert diffuse model might need tweaking later if we want softer shading, but it sets up the deferred pipeline correctly.
-**Next action:** Await user visual verification. Once verified, plan Phase 2 (Shadows - PCSS).
+**Next action:** Plan Phase 2 (Shadows - PCSS).
 
 ### 2026-07-24 — Phase 0 completed
 **Phase:** 0 — Skeleton & zero-error baseline

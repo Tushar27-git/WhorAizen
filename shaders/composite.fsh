@@ -1,6 +1,7 @@
 #version 330 compatibility
 
 #include "/lib/uniforms.glsl"
+#include "/lib/shadows.glsl"
 
 uniform sampler2D colortex0;
 uniform sampler2D colortex1;
@@ -23,6 +24,12 @@ void main() {
 		return;
 	}
 
+    // Reconstruct world space pos
+    vec4 clipPos = vec4(texcoord * 2.0 - 1.0, depth * 2.0 - 1.0, 1.0);
+    vec4 viewPos = gbufferProjectionInverse * clipPos;
+    viewPos /= viewPos.w;
+    vec4 worldPos = gbufferModelViewInverse * viewPos;
+
 	vec3 lightDir = normalize(sunPosition);
 	if (sunPosition.y < 0.0) lightDir = -lightDir; // Moon
 
@@ -31,10 +38,16 @@ void main() {
 	float blockLight = lmcoord.x;
 	float skyLight = lmcoord.y;
 
+    // Calculate PCSS shadow
+    vec3 shadow = vec3(1.0);
+    if (nDotL > 0.0) {
+        shadow = calculateShadow(worldPos.xyz, shadowModelView, shadowProjection);
+    }
+
 	// Enforce ambient floor per RULES.md §4
 	float ambient = max(skyLight * 0.5, nightAmbientFloor);
 	
-	vec3 diffuse = vec3(nDotL * skyLight);
+	vec3 diffuse = vec3(nDotL * skyLight) * shadow;
 	vec3 torch = vec3(blockLight) * vec3(1.0, 0.7, 0.4); // Warm torch light
 
 	vec3 finalLighting = vec3(ambient) + diffuse + torch;

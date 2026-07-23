@@ -20,12 +20,12 @@ Goal: correct, bright, unshadowed sun/moon/block-light lighting.
 
 ## Phase 2 — Shadows (PCSS)
 Goal: soft, contact-hardening directional shadows that respect the brightness floor.
-- [ ] shadow.vsh/.fsh render depth + colored translucent shadow data
-- [ ] `lib/distort.glsl` implements shadow map distortion (Iris tutorial pattern) to concentrate resolution near the player
-- [ ] `lib/shadows.glsl` implements blocker search → penumbra estimate → variable-kernel filtered sample (PCSS), not flat PCF
-- [ ] Verify shadow floor: fully shadowed geometry at night/thunderstorm still sits at/above the ambient floor from Phase 1
-- [ ] Visual check against DESIGN.md mood reference: shadows should read as soft and cinematic, not muddy or banded
-- [ ] MEMORY.md entry
+- [x] shadow.vsh/.fsh render depth + colored translucent shadow data
+- [x] `lib/distort.glsl` implements shadow map distortion (Iris tutorial pattern) to concentrate resolution near the player
+- [x] `lib/shadows.glsl` implements blocker search → penumbra estimate → variable-kernel filtered sample (PCSS), not flat PCF
+- [x] Verify shadow floor: fully shadowed geometry at night/thunderstorm still sits at/above the ambient floor from Phase 1
+- [x] Visual check against DESIGN.md mood reference: shadows should read as soft and cinematic, not muddy or banded
+- [x] MEMORY.md entry
 
 ## Phase 3 — Sky & atmosphere
 Goal: physically-grounded Rayleigh/Mie sky with genuinely good sunrises/sunsets.

@@ -12,6 +12,14 @@ How to use this file:
 
 ## Session log
 
+### 2026-07-24 — Phase 1 completed
+**Phase:** 1 — Core deferred lighting
+**Status:** phase complete (pending user visual check)
+**What changed:** Added buffer formats to `shaders.properties`. Updated all gbuffer fragment shaders to output albedo, lightmap, normal, and PBR stub to `colortex0` through `colortex3`. Implemented the `composite.fsh` lighting pass to use sun/moon lighting based on normal dot product, and block light. Implemented the strict `nightAmbientFloor` uniform from day 1 to prevent crushed blacks.
+**Verified:** User needs to visually check the game for full day/night cycle.
+**Open issues / uncertainty:** The basic Lambert diffuse model might need tweaking later if we want softer shading, but it sets up the deferred pipeline correctly.
+**Next action:** Await user visual verification. Once verified, plan Phase 2 (Shadows - PCSS).
+
 ### 2026-07-24 — Phase 0 completed
 **Phase:** 0 — Skeleton & zero-error baseline
 **Status:** phase complete

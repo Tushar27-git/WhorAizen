@@ -12,11 +12,11 @@ Goal: a shader pack that Iris loads with zero errors, doing nothing but passing 
 
 ## Phase 1 — Core deferred lighting
 Goal: correct, bright, unshadowed sun/moon/block-light lighting.
-- [ ] gbuffers_terrain/entities/hand/block write albedo, normal, lightmap, PBR-stub data to colortex per ARCHITECTURE.md §2
-- [ ] composite (deferred resolve) reconstructs world position and mixes sun/moon + block light + a flat ambient term
-- [ ] Implement the brightness-floor uniform (RULES.md §4) even before shadows exist, so it's load-bearing from day one, not bolted on later
-- [ ] Visual check: full day/night cycle looks correct and readable with no shadows yet (flat but bright, no crushed blacks)
-- [ ] MEMORY.md entry
+- [x] gbuffers_terrain/entities/hand/block write albedo, normal, lightmap, PBR-stub data to colortex per ARCHITECTURE.md §2
+- [x] composite (deferred resolve) reconstructs world position and mixes sun/moon + block light + a flat ambient term
+- [x] Implement the brightness-floor uniform (RULES.md §4) even before shadows exist, so it's load-bearing from day one, not bolted on later
+- [x] Visual check: full day/night cycle looks correct and readable with no shadows yet (flat but bright, no crushed blacks)
+- [x] MEMORY.md entry
 
 ## Phase 2 — Shadows (PCSS)
 Goal: soft, contact-hardening directional shadows that respect the brightness floor.

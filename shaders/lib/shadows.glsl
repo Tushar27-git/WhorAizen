@@ -53,9 +53,9 @@ float calculatePCF(vec3 shadowPos, float penumbraSize) {
     return shadow / float(PCF_SAMPLES);
 }
 
-vec3 calculateShadow(vec3 worldPos, mat4 shadowModelView, mat4 shadowProjection) {
-    vec4 shadowView = shadowModelView * vec4(worldPos, 1.0);
-    vec4 shadowClip = shadowProjection * shadowView;
+vec3 calculateShadow(vec3 worldPos, mat4 inShadowModelView, mat4 inShadowProjection) {
+    vec4 shadowView = inShadowModelView * vec4(worldPos, 1.0);
+    vec4 shadowClip = inShadowProjection * shadowView;
     vec3 shadowPos = shadowClip.xyz / shadowClip.w;
     
     shadowPos = distortShadow(shadowPos);

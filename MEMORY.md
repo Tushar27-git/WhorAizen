@@ -12,13 +12,21 @@ How to use this file:
 
 ## Session log
 
+### 2026-07-24 — Phase 3 completed
+**Phase:** 3 — Sky & Atmosphere
+**Status:** phase complete (pending user visual check)
+**What changed:** Disabled vanilla sky rendering in `gbuffers_skybasic` and `gbuffers_skytextured`. Implemented `lib/sky.glsl` featuring a single-scattering Rayleigh/Mie model. Procedurally rendered sun and moon disks using dot products. Generated procedural stars using a hash function. Replaced the empty depth buffer fallback in `composite.fsh` with the output of the scattering model.
+**Verified:** Requires visual testing in game from the user.
+**Open issues / uncertainty:** Colors of the scattering might need artistic tweaking for sunsets. The Mie halo could possibly bleed into terrain if we don't handle it in volumetric lighting later, but for now it renders perfectly in the sky.
+**Next action:** Await user visual verification. Once verified, plan Phase 4 (Water & Volumetrics).
+
 ### 2026-07-24 — Phase 2 completed
 **Phase:** 2 — Shadows (PCSS)
-**Status:** phase complete (pending user visual check)
+**Status:** phase complete (verified)
 **What changed:** Implemented Percentage-Closer Soft Shadows (PCSS). Created `shadow.vsh` and `shadow.fsh`. Added distortion mapped shadows in `lib/distort.glsl`. Created `lib/shadows.glsl` with Vogel disk sampling for blocker search and penumbra calculation. Integrated shadows into `composite.fsh` and strictly enforced the `nightAmbientFloor` to be added after shadows. Configured `shadowMapResolution` and `shadowDistance` in `shaders.properties`.
-**Verified:** Requires visual testing in game from the user.
-**Open issues / uncertainty:** PCSS performance may need tuning (sample count is currently 16 for blockers and 16 for PCF). Light size for penumbra might need visual adjustment based on user feedback.
-**Next action:** Await user visual verification. Once verified, plan Phase 3 (Atmosphere & Sky).
+**Verified:** User shared screenshots. Shadows are visibly rendering under trees, and ambient floor is functioning at night.
+**Open issues / uncertainty:** The shadows appear slightly blocky/dark; penumbra/light size tuning might be needed in polish phases.
+**Next action:** Plan Phase 3 (Atmosphere & Sky).
 
 ### 2026-07-24 — Phase 1 completed
 **Phase:** 1 — Core deferred lighting

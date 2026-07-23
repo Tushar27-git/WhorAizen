@@ -2,6 +2,7 @@
 
 #include "/lib/uniforms.glsl"
 #include "/lib/shadows.glsl"
+#include "/lib/sky.glsl"
 
 uniform sampler2D colortex0;
 uniform sampler2D colortex1;
@@ -19,18 +20,19 @@ void main() {
 	vec3 normal = texture(colortex2, texcoord).xyz * 2.0 - 1.0;
 	float depth = texture(depthtex0, texcoord).r;
 
-	if (depth == 1.0) {
-		color = albedo; // Sky
-		return;
-	}
-
-    // Reconstruct world space pos
     vec4 clipPos = vec4(texcoord * 2.0 - 1.0, depth * 2.0 - 1.0, 1.0);
     vec4 viewPos = gbufferProjectionInverse * clipPos;
     viewPos /= viewPos.w;
     vec4 worldPos = gbufferModelViewInverse * viewPos;
+    vec3 viewDir = normalize(worldPos.xyz);
+    vec3 sunDir = normalize(sunPosition);
 
-	vec3 lightDir = normalize(sunPosition);
+	if (depth == 1.0) {
+		color = vec4(getAtmosphericScattering(viewDir, sunDir), 1.0);
+		return;
+	}
+
+	vec3 lightDir = sunDir;
 	if (sunPosition.y < 0.0) lightDir = -lightDir; // Moon
 
 	float nDotL = max(dot(normal, lightDir), 0.0);

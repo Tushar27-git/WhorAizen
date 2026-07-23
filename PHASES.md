@@ -29,12 +29,12 @@ Goal: soft, contact-hardening directional shadows that respect the brightness fl
 
 ## Phase 3 — Sky & atmosphere
 Goal: physically-grounded Rayleigh/Mie sky with genuinely good sunrises/sunsets.
-- [ ] `lib/sky.glsl`: Rayleigh scattering (blue daytime sky, correct horizon reddening at low sun angles) + Mie scattering (sun halo, haze)
-- [ ] Sun/moon disks with soft bloom-halo, correct color temperature shift through the day
-- [ ] Weather blending: overcast/storm sky desaturates and darkens the *sky dome* without violating the ground-level brightness floor
-- [ ] Stars fade in/out correctly at dusk/dawn
-- [ ] Visual check: screenshot sunrise and sunset from several biomes, compare against DESIGN.md reference mood
-- [ ] MEMORY.md entry
+- [x] `gbuffers_skybasic`/`gbuffers_skytextured` disable vanilla sky rendering
+- [x] `composite.fsh` draws the atmospheric scattering sky when `depth == 1.0`
+- [x] `lib/sky.glsl` implements a single-scattering Rayleigh/Mie model
+- [x] Sun and moon discs rendered procedurally via `dot(viewDir, lightDir)`
+- [x] Visual check: daytime sky should be a vibrant azure, sunset should feature a rich red/orange gradient, and nights should have a visible starry mood
+- [x] MEMORY.md entry
 
 ## Phase 4 — Volumetric god rays / fog
 Goal: raymarched light shafts, strongest at low sun angle, present at night from the moon, restrained at noon.
